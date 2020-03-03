@@ -1,36 +1,33 @@
 package com.cis.minisocialnetwork.Controllers;
 
 import com.cis.minisocialnetwork.Entities.Post;
+import com.cis.minisocialnetwork.Repositories.FollowerRepository;
 import com.cis.minisocialnetwork.Repositories.PostRepository;
-import com.cis.minisocialnetwork.Responses.ResourceNotFoundException;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.validation.Valid;
+import java.util.List;
+
 
 @RestController
 public class PostController {
     @Autowired
     private PostRepository postRepository;
 
-    @GetMapping("/posts")
-    public Page<Post> getAllPosts(Pageable pageable){
-        return postRepository.findAll(pageable);
+
+    @RequestMapping(value = "/posts", method = RequestMethod.DELETE, produces = "application/json; charset=UTF-8")
+    public ResponseEntity<?> deletePost(@RequestParam(value = "post_id") Long id){
+
     }
 
-    @PostMapping("/posts")
-    public Post createPost(@Valid @RequestBody Post post){
-        return postRepository.save(post);
-    }
+    @RequestMapping(value = "/posts", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    public ResponseEntity<?> createPost(@RequestBody Post post, UriComponentsBuilder builder){
 
-    @DeleteMapping("/posts/{postId}")
-    public ResponseEntity<?> deletePost(@PathVariable Long postId){
-        return postRepository.findById(postId).map(post -> {
-            postRepository.delete(post);
-            return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
     }
 }
