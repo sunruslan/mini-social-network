@@ -27,8 +27,8 @@ public class FollowerController {
         return new ResponseEntity<List<User>>(followers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/subscribe", method=RequestMethod.POST, produces = "application/json; charset=UTF-8")
-    public ResponseEntity<?> subscribe(@RequestParam(value = "from_id") Long from_id, @RequestParam(value = "to_id") Long to_id) {
+    @RequestMapping(value = "/follow", method=RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    public ResponseEntity<?> follow(@RequestParam(value = "from_id") Long from_id, @RequestParam(value = "to_id") Long to_id) {
         User from_user = userRepository.findById(from_id).get();
         User to_user = userRepository.findById(to_id).get();
         followerRepository.save(new Follower(from_user, to_user));
@@ -36,8 +36,8 @@ public class FollowerController {
         return new ResponseEntity<List<User>>(followers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/subscribe", method=RequestMethod.DELETE, produces = "application/json; charset=UTF-8")
-    public ResponseEntity<?> unsubscribe(@RequestParam(value = "from_id") Long from_id, @RequestParam(value = "to_id") Long to_id) {
+    @RequestMapping(value = "/follow", method=RequestMethod.DELETE, produces = "application/json; charset=UTF-8")
+    public ResponseEntity<?> unfollow(@RequestParam(value = "from_id") Long from_id, @RequestParam(value = "to_id") Long to_id) {
         User from_user = userRepository.findById(from_id).get();
         User to_user = userRepository.findById(to_id).get();
         Follower follower = followerRepository.getByFromAndTo(from_user, to_user);

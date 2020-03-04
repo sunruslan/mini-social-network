@@ -16,8 +16,14 @@ public class UserController{
     private UserRepository userRepository;
 
     @RequestMapping(value = "/users", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-    public ResponseEntity<?> getAllUsers(){
-        return new ResponseEntity<List<User>>(userRepository.findAll(), HttpStatus.OK);
+    public ResponseEntity<?> getAllUsers(@RequestParam(value = "count", defaultValue = "10") int count,
+                                         @RequestParam(value = "page", defaultValue = "1") int page,
+                                         @RequestParam(value = "term") String term){
+        List<User> users = userRepository.findUsersByFirstNameContainsOrSecondNameContainsOrNicknameContains(term);
+        int from = Math.max(0, (page - 1) * count);
+        int to = Math.min(page * count, users.size());
+        return new ResponseEntity<List<User>>(users.subList(from, to), HttpStatus.OK);
+
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
