@@ -16,6 +16,8 @@ public class User {
     @NotNull
     @Column(name = "nickname")
     private String nickname;
+    @Column(name = "photo_url")
+    private String photoUrl;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "second_name")
@@ -43,6 +45,14 @@ public class User {
                 ", secondName='" + secondName + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     public String getNickname() {
