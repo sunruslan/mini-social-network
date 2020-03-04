@@ -26,4 +26,28 @@ public class Follower {
         this.to = to;
     }
 
+    public User getFrom() {
+        return from;
+    }
+
+    public void setFrom(User from) {
+        this.from = from;
+    }
+
+    public User getTo() {
+        return to;
+    }
+
+    public void setTo(User to) {
+        this.to = to;
+    }
+
+    @Override
+    public String toString() {
+        return "Follower{" +
+                "id=" + id +
+                ", from=" + from +
+                ", to=" + to +
+                '}';
+    }
 }

@@ -20,14 +20,22 @@ public class PostController {
     @Autowired
     private PostRepository postRepository;
 
+    @RequestMapping(value = "/posts/like", method = RequestMethod.PUT, produces = "application/json; charset=UTF-8")
+    public ResponseEntity<?> like(@RequestParam(value = "post_id") Long id, @RequestParam(value = "rating") float rating){
+        Post post = postRepository.findById(id).get();
+        post.updateRating(rating);
+        return new ResponseEntity<Post>(post, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/posts", method = RequestMethod.DELETE, produces = "application/json; charset=UTF-8")
     public ResponseEntity<?> deletePost(@RequestParam(value = "post_id") Long id){
-
+        postRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/posts", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     public ResponseEntity<?> createPost(@RequestBody Post post, UriComponentsBuilder builder){
-
+        postRepository.save(post);
+        return new ResponseEntity<Post>(post, HttpStatus.OK);
     }
 }

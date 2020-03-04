@@ -13,9 +13,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name = "birthday")
-    @Temporal(TemporalType.DATE)
-    private LocalDate birthday;
     @NotNull
     @Column(name = "nickname")
     private String nickname;
@@ -26,7 +23,7 @@ public class User {
     @NotNull
     @Column(name = "password")
     private String password;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
     private List<Post> posts;
     @OneToMany(mappedBy="to")
     private List<Follower> followers;
@@ -41,11 +38,66 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", birthday=" + birthday +
                 ", nickname='" + nickname + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", secondName='" + secondName + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+
+    public List<Follower> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<Follower> followers) {
+        this.followers = followers;
+    }
+
+    public List<Follower> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<Follower> following) {
+        this.following = following;
     }
 }

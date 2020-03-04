@@ -1,11 +1,9 @@
 package com.cis.minisocialnetwork.Entities;
 
-import org.graalvm.compiler.api.replacements.ClassSubstitution;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
-import java.util.List;
+import java.util.Date;
 
 @Entity
 @Table(name = "posts")
@@ -19,6 +17,9 @@ public class Post {
     @Column(name = "rating")
     private float rating;
     @NotNull
+    @Column(name = "likes_count")
+    private float likesCount;
+    @NotNull
     @Column(name = "title")
     private String title;
     @NotNull
@@ -27,9 +28,9 @@ public class Post {
     @NotNull
     @Column(name = "date")
     @Temporal(TemporalType.DATE)
-    private LocalDate date;
+    private Date date;
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "user_id", nullable = false)
     private User creator;
 
     protected Post(){
@@ -46,5 +47,50 @@ public class Post {
                 ", date=" + date +
                 ", creator=" + creator +
                 '}';
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public void updateRating(float rating){
+        this.rating = (this.rating * this.likesCount + rating) / (this.likesCount + 1);
+        this.likesCount += 1;
     }
 }

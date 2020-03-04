@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class FollowerController {
@@ -20,10 +21,10 @@ public class FollowerController {
     private UserRepository userRepository;
 
     @RequestMapping(value = "/followers", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-    public @ResponseBody
-    List<User> getFollowersById(@RequestParam(value = "user_id") Long id){
+    public ResponseEntity<?> getFollowersById(@RequestParam(value = "user_id") Long id){
         Optional<User> user = userRepository.findById(id);
-        return followerRepository.getAllByFrom(user.get());
+        List<User> followers = followerRepository.getAllByFrom(user.get()).stream().map(f -> f.getTo()).collect(Collectors.toList());
+        return new ResponseEntity<List<User>>(followers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/subscribe", method=RequestMethod.POST, produces = "application/json; charset=UTF-8")
@@ -31,7 +32,7 @@ public class FollowerController {
         User from_user = userRepository.findById(from_id).get();
         User to_user = userRepository.findById(to_id).get();
         followerRepository.save(new Follower(from_user, to_user));
-        List<User> followers = followerRepository.getAllByFrom(from_user);
+        List<User> followers = followerRepository.getAllByFrom(from_user).stream().map(f -> f.getTo()).collect(Collectors.toList());
         return new ResponseEntity<List<User>>(followers, HttpStatus.OK);
     }
 
@@ -41,7 +42,7 @@ public class FollowerController {
         User to_user = userRepository.findById(to_id).get();
         Follower follower = followerRepository.getByFromAndTo(from_user, to_user);
         followerRepository.delete(follower);
-        List<User> followers = followerRepository.getAllByFrom(from_user);
+        List<User> followers = followerRepository.getAllByFrom(from_user).stream().map(f -> f.getTo()).collect(Collectors.toList());
         return new ResponseEntity<List<User>>(followers, HttpStatus.OK);
     }
 }
