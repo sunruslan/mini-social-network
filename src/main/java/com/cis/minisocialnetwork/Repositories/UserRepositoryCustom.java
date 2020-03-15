@@ -1,9 +1,10 @@
 package com.cis.minisocialnetwork.Repositories;
 
 import com.cis.minisocialnetwork.dto.PostDto;
+import com.cis.minisocialnetwork.dto.UserDto;
 
 import java.util.List;
 
-public interface PostRepositoryCustom {
-    List<PostDto> findByUserNickname(String nick);
+public interface UserRepositoryCustom {
+    List<UserDto> findAllUsers();
 }

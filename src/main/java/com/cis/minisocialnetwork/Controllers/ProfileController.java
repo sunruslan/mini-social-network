@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @Api(value="minisocialnetwork", description="Operations pertaining to profile")
 @RestController
 public class ProfileController {
@@ -20,7 +22,7 @@ public class ProfileController {
 
     @GetMapping("/profile/{nickname}")
     @ApiOperation("get user profile")
-    public RestResponse getUserProfileByNickname(@PathVariable("nickname") String nickname){
+    public RestResponse getUserProfileByNickname(@Valid @PathVariable("nickname") String nickname){
         try{
             return RestResponse.createSuccessResponse(userRepository.findByNickname(nickname));
         }

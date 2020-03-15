@@ -16,16 +16,14 @@ public class PostRepositoryImpl implements PostRepositoryCustom {
     @PersistenceContext
     EntityManager entityManager;
 
-
     @Override
-    public List<PostDto> findByUserProfileId(Long userProfId){
-
+    public List<PostDto> findByUserNickname(String nick) {
         List<PostDto> resultList= new ArrayList<>();
-        Query query = entityManager.createNativeQuery("select p.id,p.title,p.content,u.id as userId,u.profile_Pic_Url from posts p,userprofile u where p.user_prof_id=u.id and p.user_prof_id=?","findAllDataMapping");
-        query.setParameter(1, userProfId );
+        Query query = entityManager.createNativeQuery("select p.id,p.title,p.content,u.id as userId,u.profile_Pic_Url " +
+                "from posts p,userprofile u, user_entity ey " +
+                "where p.user_prof_id=u.id and ey.id = u.user_id and p.nickname=?","findAllDataMapping");
+        query.setParameter(1, nick );
         resultList=query.getResultList();
         return resultList;
-
     }
-
 }

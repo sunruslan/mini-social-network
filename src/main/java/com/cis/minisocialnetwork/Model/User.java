@@ -29,6 +29,13 @@ public class User extends AuditModel {
     @Size(max=30)
     @ApiModelProperty(notes = "Nickname of the user for logging in")
     private String nickname;
+
+    @NotNull
+    @Column(name = "password")
+    @Size(max=30)
+    @ApiModelProperty(notes = "Password of the user for logging in")
+    private String password;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @ApiModelProperty(notes = "Roles that user is going to have")
     List<Role> roles;
@@ -45,6 +52,9 @@ public class User extends AuditModel {
     @OneToMany(mappedBy="from")
     private List<Followers> following;
 
+    public String getPassword() {
+        return password;
+    }
 
     public List<Role> getRoles() {
         return roles;

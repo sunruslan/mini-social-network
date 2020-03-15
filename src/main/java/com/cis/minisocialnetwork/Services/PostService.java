@@ -5,9 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface PostService {
 
-    Post InsertPost(Post post,Long UserProfId);
-
-    Post EditPost(Long postId, Post post);
+    Post InsertPost(Post post, String username);
 
     ResponseEntity<?> deletePost(Long PostId);
 }

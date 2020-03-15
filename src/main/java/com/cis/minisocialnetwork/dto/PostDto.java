@@ -10,14 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class PostDto {
-
     Long postId;
     String title;
-    String description;
     String content;
     Long userProfID;
     String profilePicUrl;
-
-
-
 }

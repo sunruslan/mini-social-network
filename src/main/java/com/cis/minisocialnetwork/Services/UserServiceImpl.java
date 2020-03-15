@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService{
     public String insertUser(User user){
         boolean flag;
         System.out.println(user);
-        flag=alreadyRegistered(user.getNickname());
+        flag=alreadyRegistered(user.getNickname(), user.getPassword());
         if(!flag) {
             user.getUserProfile().setUser(user);
             userRepository.save(user);
@@ -35,33 +35,27 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String fetchUserToken(String nickname){
+    public String fetchUserToken(String nickname, String password){
         User user;
         boolean flag;
-        flag=alreadyRegistered(nickname);
+        flag = alreadyRegistered(nickname, password);
         if(flag) {
-            user=getUser(nickname);
+            user = getUser(nickname, password);
             return jwtTokenProvider.createToken(user.getNickname(), user.getRoles());
         }
         else{
-            throw new ResourceNotFoundException("User is not registered");
+            throw new ResourceNotFoundException("User is not registered or password is incorrect");
         }
-
-
     }
 
-    public User getUser(String nickname) {
-
+    public User getUser(String nickname, String password) {
         User user;
-        user= userRepository.getUserByNickname(nickname).get();
+        user= userRepository.getUserByNicknameAndPassword(nickname, password).get();
         return user;
     }
 
     @Override
-    public boolean alreadyRegistered(String nickname){
-
-        return userRepository.existsByNickname(nickname);
-
-
+    public boolean alreadyRegistered(String nickname, String password){
+        return userRepository.existsByNicknameAndPassword(nickname, password);
     }
 }

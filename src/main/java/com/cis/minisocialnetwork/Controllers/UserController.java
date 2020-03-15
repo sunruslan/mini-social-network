@@ -9,6 +9,7 @@ import com.cis.minisocialnetwork.Repositories.UserRepository;
 import com.cis.minisocialnetwork.RestResponse;
 import com.cis.minisocialnetwork.Services.UserService;
 import com.cis.minisocialnetwork.dto.PostDto;
+import com.cis.minisocialnetwork.dto.UserDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +23,11 @@ import java.util.List;
 @RestController
 @Api(value="minisocialnetwork", description="Operations pertaining to user)")
 public class UserController {
-
-
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
     private UserService userService;
-
 
     @PostMapping("/users/signup")
     @ApiOperation(value = "Signup for the user")
@@ -47,38 +42,29 @@ public class UserController {
 
     @GetMapping("/users/signin")
     @ApiOperation(value = "Signing in of the user")
-    public RestResponse getUser(@Valid @RequestParam("nickname") String user){
+    public RestResponse getUser(@Valid @RequestParam("nickname") String user,
+                                @Valid @RequestParam("password") String password){
         try{
-            return RestResponse.createSuccessResponse(userService.fetchUserToken(user));
+            return RestResponse.createSuccessResponse(userService.fetchUserToken(user, password));
         }
         catch(ResourceNotFoundException e){
             return RestResponse.createFailureResponse(e.getMessage(),400);
         }
     }
 
-
-    @GetMapping("/users/getall")
-    @ApiOperation(value = "Get all posts of the user")
-    public List<PostDto> getAllPosts(@Valid @RequestParam("userProfId") Long userProfId){
-        List<Post> posts= new ArrayList<>();
-        return postRepository.findByUserProfileId(userProfId);
-    }
-
-    @GetMapping("/users/")
+    @GetMapping("/users")
     @ApiOperation(value = "get all users")
     public RestResponse getAllUsers(@Valid @RequestParam(value = "count", defaultValue = "10") int count,
-                                  @Valid @RequestParam(value = "page", defaultValue = "1") int page,
-                                  @Valid @RequestParam(value = "term", defaultValue = "") String term) {
+                                  @Valid @RequestParam(value = "page", defaultValue = "1") int page) {
 
         try{
-            int start = (page-1)*count;
-            int end = page*count;
-            List<User> users = userRepository.findAllByNicknameContains(term).subList(start, end);
-            return RestResponse.createSuccessResponse(users);
+            List<User> users = userRepository.findAll();
+            int start = Math.max((page-1)*count, 0);
+            int end = Math.min(page*count, users.size());
+            return RestResponse.createSuccessResponse(users.subList(start, end));
         }
         catch(ResourceNotFoundException e){
             return RestResponse.createFailureResponse(e.getMessage(),400);
         }
-
     }
 }
