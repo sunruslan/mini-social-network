@@ -13,6 +13,6 @@ public class PostDto {
     Long postId;
     String title;
     String content;
-    Long userProfID;
+    String nickname;
     String profilePicUrl;
 }

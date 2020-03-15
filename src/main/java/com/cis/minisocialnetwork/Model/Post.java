@@ -24,9 +24,8 @@ import java.util.Date;
                 columns = {
                         @ColumnResult(name = "id",type=Long.class),
                         @ColumnResult(name = "title",type= String.class),
-                        @ColumnResult(name = "description",type=String.class),
                         @ColumnResult(name = "content",type=String.class),
-                        @ColumnResult(name = "userId",type=Long.class),
+                        @ColumnResult(name = "nickname",type=String.class),
                         @ColumnResult(name = "profile_Pic_Url",type=String.class)
                 }
         )
@@ -45,7 +44,6 @@ public class Post extends AuditModel {
 
     @NotNull
     @Size(max = 100)
-    @Column(unique = true)
     @ApiModelProperty(notes = "Heading or title of the post")
     private String title;
 

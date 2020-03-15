@@ -42,7 +42,7 @@ public class PostController {
     public RestResponse getAllPosts(@Valid @RequestParam(value = "count", defaultValue = "10") int count,
                                   @Valid @RequestParam(value = "page", defaultValue = "1") int page) {
         try{
-            List<Post> posts = postRepository.findAll();
+            List<PostDto> posts = postRepository.findAllPosts();
             int start = Math.max((page-1)*count, 0);
             int end = Math.min(page*count, posts.size());
             return RestResponse.createSuccessResponse(posts.subList(start, end));

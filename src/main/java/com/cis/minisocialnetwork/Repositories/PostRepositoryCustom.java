@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface PostRepositoryCustom {
     List<PostDto> findByUserNickname(String nick);
+    List<PostDto> findAllPosts();
 }

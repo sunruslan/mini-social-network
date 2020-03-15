@@ -24,7 +24,7 @@ public class ProfileController {
     @ApiOperation("get user profile")
     public RestResponse getUserProfileByNickname(@Valid @PathVariable("nickname") String nickname){
         try{
-            return RestResponse.createSuccessResponse(userRepository.findByNickname(nickname));
+            return RestResponse.createSuccessResponse(userRepository.findByNickname(nickname).getNickname());
         }
         catch(CustomException e){
             return RestResponse.createFailureResponse(e.getMessage(),400);
