@@ -19,8 +19,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @Override
     public List<UserDto> findAllUsers() {
         List<UserDto> resultList= new ArrayList<>();
-        Query query = entityManager.createNativeQuery("select u.nickname, up.about, up.profile_Pic_Url " +
-                "from user_entity u,userprofile up where up.user_id=u.id","findAllDataMapping");
+        Query query = entityManager.createNativeQuery("select u.nickname, up.about, up.gender, up.location, up.profile_Pic_Url " +
+                "from user_entity u,userprofile up " +
+                "where up.user_id=u.id","userMapping");
         resultList=query.getResultList();
         return resultList;
     }

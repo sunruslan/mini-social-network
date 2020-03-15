@@ -13,6 +13,22 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+
+
+@SqlResultSetMapping(
+        name = "userMapping",
+        classes = @ConstructorResult(
+                targetClass = com.cis.minisocialnetwork.dto.UserDto.class,
+                columns = {
+                        @ColumnResult(name = "nickname",type= String.class),
+                        @ColumnResult(name = "about",type=String.class),
+                        @ColumnResult(name = "gender",type=boolean.class),
+                        @ColumnResult(name = "location",type=String.class),
+                        @ColumnResult(name = "profile_Pic_Url",type=String.class)
+                }
+        )
+)
+
 @Entity
 @Data
 @EqualsAndHashCode

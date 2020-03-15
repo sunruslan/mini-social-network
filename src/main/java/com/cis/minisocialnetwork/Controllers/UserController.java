@@ -58,7 +58,7 @@ public class UserController {
                                   @Valid @RequestParam(value = "page", defaultValue = "1") int page) {
 
         try{
-            List<User> users = userRepository.findAll();
+            List<UserDto> users = userRepository.findAllUsers();
             int start = Math.max((page-1)*count, 0);
             int end = Math.min(page*count, users.size());
             return RestResponse.createSuccessResponse(users.subList(start, end));
