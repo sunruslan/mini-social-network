@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @Api(value="minisocialnetwork", description="follow/unfollow")
@@ -55,7 +56,8 @@ public class FollowerController {
             } else {
                 username = principal.toString();
             }
-            followerRepository.deleteByFrom_NicknameAndTo_Nickname(username, nickname);
+            Optional<Followers> followers = followerRepository.findByFromNicknameAndToNickname(username, nickname);
+            followers.ifPresent(value -> followerRepository.delete(value));
             return RestResponse.createSuccessResponse("OK");
         }
         catch(CustomException e){
