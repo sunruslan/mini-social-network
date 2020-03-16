@@ -1,13 +1,11 @@
 package com.cis.minisocialnetwork.Repositories;
 
-import com.cis.minisocialnetwork.Entities.Post;
-import com.cis.minisocialnetwork.Entities.User;
+import com.cis.minisocialnetwork.Model.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface PostRepository extends JpaRepository<Post, Long> {
+public interface PostRepository extends JpaRepository<Post, Long>, PostRepositoryCustom {
     Optional<Post> findById(Long id);
 }

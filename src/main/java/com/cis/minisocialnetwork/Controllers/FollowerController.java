@@ -1,48 +1,89 @@
 package com.cis.minisocialnetwork.Controllers;
 
-import com.cis.minisocialnetwork.Entities.Follower;
-import com.cis.minisocialnetwork.Entities.User;
+import com.cis.minisocialnetwork.Exception.CustomException;
+import com.cis.minisocialnetwork.Exception.ResourceNotFoundException;
+import com.cis.minisocialnetwork.Model.Followers;
+import com.cis.minisocialnetwork.Model.User;
 import com.cis.minisocialnetwork.Repositories.FollowerRepository;
 import com.cis.minisocialnetwork.Repositories.UserRepository;
+import com.cis.minisocialnetwork.RestResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
+@Api(value="minisocialnetwork", description="follow/unfollow")
 public class FollowerController {
     @Autowired
-    private FollowerRepository followerRepository;
+    UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    FollowerRepository followerRepository;
 
-    @RequestMapping(value = "/followers", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
-    public ResponseEntity<?> getFollowersById(@RequestParam(value = "user_id") Long id){
-        Optional<User> user = userRepository.findById(id);
-        List<User> followers = followerRepository.getAllByFrom(user.get()).stream().map(f -> f.getTo()).collect(Collectors.toList());
-        return new ResponseEntity<List<User>>(followers, HttpStatus.OK);
+    @GetMapping("/follow/{nickname}")
+    @ApiOperation(value = "check if follow the user")
+    public RestResponse isFollowing(@Valid @PathVariable("nickname") String nickname){
+        try{
+            String username = "";
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                username = ((UserDetails)principal).getUsername();
+            } else {
+                username = principal.toString();
+            }
+            return RestResponse.createSuccessResponse(followerRepository.existsByFrom_NicknameAndTo_Nickname(username, nickname));
+        }
+        catch(CustomException e){
+            return RestResponse.createFailureResponse(e.getMessage(),400);
+        }
+
     }
 
-    @RequestMapping(value = "/follow", method=RequestMethod.POST, produces = "application/json; charset=UTF-8")
-    public ResponseEntity<?> follow(@RequestParam(value = "from_id") Long from_id, @RequestParam(value = "to_id") Long to_id) {
-        User from_user = userRepository.findById(from_id).get();
-        User to_user = userRepository.findById(to_id).get();
-        followerRepository.save(new Follower(from_user, to_user));
-        List<User> followers = followerRepository.getAllByFrom(from_user).stream().map(f -> f.getTo()).collect(Collectors.toList());
-        return new ResponseEntity<List<User>>(followers, HttpStatus.OK);
+    @DeleteMapping("/follow/{nickname}")
+    @ApiOperation(value = "unfollow the user")
+    public RestResponse unfollow(@Valid @PathVariable("nickname") String nickname){
+        try{
+            String username = "";
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                username = ((UserDetails)principal).getUsername();
+            } else {
+                username = principal.toString();
+            }
+            Optional<Followers> followers = followerRepository.findByFromNicknameAndToNickname(username, nickname);
+            followers.ifPresent(value -> followerRepository.delete(value));
+            return RestResponse.createSuccessResponse("OK");
+        }
+        catch(CustomException e){
+            return RestResponse.createFailureResponse(e.getMessage(),400);
+        }
     }
 
-    @RequestMapping(value = "/follow", method=RequestMethod.DELETE, produces = "application/json; charset=UTF-8")
-    public ResponseEntity<?> unfollow(@RequestParam(value = "from_id") Long from_id, @RequestParam(value = "to_id") Long to_id) {
-        User from_user = userRepository.findById(from_id).get();
-        User to_user = userRepository.findById(to_id).get();
-        Follower follower = followerRepository.getByFromAndTo(from_user, to_user);
-        followerRepository.delete(follower);
-        List<User> followers = followerRepository.getAllByFrom(from_user).stream().map(f -> f.getTo()).collect(Collectors.toList());
-        return new ResponseEntity<List<User>>(followers, HttpStatus.OK);
+    @PostMapping("/follow/{nickname}")
+    @ApiOperation(value = "follow the user")
+    public RestResponse follow(@Valid @PathVariable("nickname") String nickname){
+        try{
+            String username = "";
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                username = ((UserDetails)principal).getUsername();
+            } else {
+                username = principal.toString();
+            }
+            User user1 = userRepository.getUserByNickname(username).get();
+            User user2 = userRepository.getUserByNickname(nickname).get();
+            return RestResponse.createSuccessResponse(followerRepository.save(new Followers(user1, user2)));
+        }
+        catch(CustomException e){
+            return RestResponse.createFailureResponse(e.getMessage(),400);
+        }
     }
+
+
 }
