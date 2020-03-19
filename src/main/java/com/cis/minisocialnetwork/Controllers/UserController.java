@@ -15,6 +15,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -58,7 +60,14 @@ public class UserController {
                                   @Valid @RequestParam(value = "page", defaultValue = "1") int page) {
 
         try{
-            List<UserDto> users = userRepository.findAllUsers();
+            String username = "";
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                username = ((UserDetails)principal).getUsername();
+            } else {
+                username = principal.toString();
+            }
+            List<UserDto> users = userRepository.findAllUsers(username);
             int start = Math.max((page-1)*count, 0);
             int end = Math.min(page*count, users.size());
             return RestResponse.createSuccessResponse(users.subList(start, end));
