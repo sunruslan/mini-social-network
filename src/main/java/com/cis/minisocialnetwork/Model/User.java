@@ -23,6 +23,7 @@ import java.util.List;
                         @ColumnResult(name = "nickname",type= String.class),
                         @ColumnResult(name = "about",type=String.class),
                         @ColumnResult(name = "gender",type=boolean.class),
+                        @ColumnResult(name = "isFollowing", type = boolean.class),
                         @ColumnResult(name = "location",type=String.class),
                         @ColumnResult(name = "profile_Pic_Url",type=String.class)
                 }
@@ -41,7 +42,7 @@ public class User extends AuditModel {
     @ApiModelProperty(notes = "Automatically generated id of the user")
     private Long id;
     @NotNull
-    @Column(name = "nickname")
+    @Column(name = "nickname", unique = true)
     @Size(max=30)
     @ApiModelProperty(notes = "Nickname of the user for logging in")
     private String nickname;

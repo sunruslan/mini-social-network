@@ -13,6 +13,11 @@ public class UserDto {
     String nickname;
     String about;
     boolean gender;
+    boolean isFollowing;
     String location;
     String profilePicUrl;
+
+    public String getNickname() {
+        return nickname;
+    }
 }
