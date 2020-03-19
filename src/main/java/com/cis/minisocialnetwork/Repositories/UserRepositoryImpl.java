@@ -29,7 +29,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 "where nickname = :nick" +
                 ")" +
                 "and to_user_fk = u.id" +
-                "), up.location, up.profile_Pic_Url " +
+                ") as isFollowing, up.location, up.profile_Pic_Url " +
                 "from user_entity u,userprofile up " +
                 "where up.user_id=u.id and u.nickname <> :nick","userMapping");
         query.setParameter("nick", nickname);
@@ -40,11 +40,22 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @Override
     public List<UserDto> getFollowings(String nickname) {
         List<UserDto> resultList= new ArrayList<>();
-        Query query = entityManager.createNativeQuery("select u.nickname, up.about, up.gender, TRUE, up.location, up.profile_Pic_Url " +
+        Query query = entityManager.createNativeQuery("select u.nickname, up.about, up.gender, TRUE as isFollowing, up.location, up.profile_Pic_Url " +
                 "from user_entity u,userprofile up " +
                 "where up.user_id=u.id and u.nickname <> :nick and exists(select * from followers where from_user_fk = (select id from user_entity where nickname = :nick) and to_user_fk = u.id)","userMapping");
         query.setParameter("nick", nickname);
         resultList=query.getResultList();
         return resultList;
+    }
+
+    @Override
+    public UserDto getProfile(String nickname) {
+        UserDto result = new UserDto();
+        Query query = entityManager.createNativeQuery("select u.nickname, up.about, up.gender, FALSE as isFollowing, up.location, up.profile_Pic_Url " +
+                "from user_entity u,userprofile up " +
+                "where up.user_id=u.id and u.nickname = :nick","userMapping");
+        query.setParameter("nick", nickname);
+        result= (UserDto) query.getSingleResult();
+        return result;
     }
 }

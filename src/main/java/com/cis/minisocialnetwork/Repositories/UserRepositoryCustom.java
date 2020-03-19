@@ -8,4 +8,5 @@ import java.util.List;
 public interface UserRepositoryCustom {
     List<UserDto> findAllUsers(String nickname);
     List<UserDto> getFollowings(String nickname);
+    UserDto getProfile(String nickname);
 }

@@ -21,15 +21,4 @@ public class SecurityController {
     public RestResponse currentUserName(Principal principal) {
         return RestResponse.createSuccessResponse(principal.getName());
     }
-
-    @GetMapping(value = "/check/{token}")
-    @ApiOperation("check token")
-    public RestResponse checkToken(@Valid @PathVariable("token") String token){
-        try {
-            return RestResponse.createSuccessResponse(jwtTokenProvider.validateToken(token));
-        }
-        catch(ResourceNotFoundException e){
-            return RestResponse.createFailureResponse(e.getMessage(),400);
-        }
-    }
 }
