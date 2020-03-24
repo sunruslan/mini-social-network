@@ -39,6 +39,7 @@ public class PostController {
 
     @GetMapping("/posts")
     @ApiOperation(value = "get all posts")
+    @CrossOrigin(origins = "http://localhost:3000")
     public RestResponse getAllPosts(@Valid @RequestParam(value = "count", defaultValue = "10") int count,
                                   @Valid @RequestParam(value = "page", defaultValue = "1") int page) {
         try{
@@ -54,6 +55,7 @@ public class PostController {
 
     @GetMapping("/posts/{nickname}")
     @ApiOperation(value = "Get all posts of the user")
+    @CrossOrigin(origins = "http://localhost:3000")
     public List<PostDto> getAllPosts(@Valid @PathVariable("nickname") String nickname){
         List<PostDto> posts= new ArrayList<>();
         return postRepository.findByUserNickname(nickname);
@@ -61,6 +63,7 @@ public class PostController {
 
     @PostMapping("/posts")
     @ApiOperation(value = "create new post")
+    @CrossOrigin(origins = "http://localhost:3000")
     public RestResponse createPost(@Valid @RequestBody Post post) {
         try {
             String username = "";
@@ -81,6 +84,7 @@ public class PostController {
 
     @DeleteMapping("/posts/{postId}")
     @ApiOperation(value = "Delete a post based on the postid")
+    @CrossOrigin(origins = "http://localhost:3000")
     public RestResponse<?> deletePostOfUser(@PathVariable Long postId) {
         try{return RestResponse.createSuccessResponse(postService.deletePost(postId)); }
         catch(ResourceNotFoundException e){

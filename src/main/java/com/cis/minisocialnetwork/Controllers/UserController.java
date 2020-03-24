@@ -33,6 +33,7 @@ public class UserController {
 
     @PostMapping("/users/signup")
     @ApiOperation(value = "Signup for the user")
+    @CrossOrigin(origins = "http://localhost:3000")
     public RestResponse createUser(@Valid @RequestBody User user){
         try{
             return RestResponse.createSuccessResponse(userService.insertUser(user));
@@ -44,6 +45,7 @@ public class UserController {
 
     @GetMapping("/users/signin")
     @ApiOperation(value = "Signing in of the user")
+    @CrossOrigin(origins = "http://localhost:3000")
     public RestResponse getUser(@Valid @RequestParam("nickname") String user,
                                 @Valid @RequestParam("password") String password){
         try{
@@ -56,6 +58,7 @@ public class UserController {
 
     @GetMapping("/users")
     @ApiOperation(value = "get all users")
+    @CrossOrigin(origins = "http://localhost:3000")
     public RestResponse getAllUsers(@Valid @RequestParam(value = "count", defaultValue = "10") int count,
                                   @Valid @RequestParam(value = "page", defaultValue = "1") int page) {
 

@@ -18,6 +18,7 @@ public class SecurityController {
 
     @RequestMapping(value = "/username", method = RequestMethod.GET)
     @ResponseBody
+    @CrossOrigin(origins = "http://localhost:3000")
     public RestResponse currentUserName(Principal principal) {
         return RestResponse.createSuccessResponse(principal.getName());
     }

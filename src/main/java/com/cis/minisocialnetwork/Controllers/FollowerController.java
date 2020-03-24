@@ -30,6 +30,7 @@ public class FollowerController {
 
     @GetMapping("/follow/{nickname}")
     @ApiOperation(value = "check if follow the user")
+    @CrossOrigin(origins = "http://localhost:3000")
     public RestResponse isFollowing(@Valid @PathVariable("nickname") String nickname){
         try{
             String username = "";
@@ -49,6 +50,7 @@ public class FollowerController {
 
     @DeleteMapping("/follow/{nickname}")
     @ApiOperation(value = "unfollow the user")
+    @CrossOrigin(origins = "http://localhost:3000")
     public RestResponse unfollow(@Valid @PathVariable("nickname") String nickname){
         try{
             String username = "";
@@ -69,6 +71,7 @@ public class FollowerController {
 
     @PostMapping("/follow/{nickname}")
     @ApiOperation(value = "follow the user")
+    @CrossOrigin(origins = "http://localhost:3000")
     public RestResponse follow(@Valid @PathVariable("nickname") String nickname){
         try{
             String username = "";
@@ -89,6 +92,7 @@ public class FollowerController {
 
     @GetMapping("/followings")
     @ApiOperation(value = "get all followings")
+    @CrossOrigin(origins = "http://localhost:3000")
     public RestResponse getFollowings(){
         try{
             String username = "";
