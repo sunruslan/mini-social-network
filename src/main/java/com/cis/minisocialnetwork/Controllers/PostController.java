@@ -8,8 +8,10 @@ import com.cis.minisocialnetwork.Repositories.ProfileRepository;
 import com.cis.minisocialnetwork.RestResponse;
 import com.cis.minisocialnetwork.Services.PostService;
 import com.cis.minisocialnetwork.dto.PostDto;
+import com.cis.minisocialnetwork.dto.UserDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -46,7 +48,8 @@ public class PostController {
             List<PostDto> posts = postRepository.findAllPosts();
             int start = Math.max((page-1)*count, 0);
             int end = Math.min(page*count, posts.size());
-            return RestResponse.createSuccessResponse(posts.subList(start, end));
+            Pair<Integer, List<PostDto>> response = new Pair<>(posts.size(), posts.subList(start, end));
+            return RestResponse.createSuccessResponse(response);
         }
         catch(ResourceNotFoundException e){
             return RestResponse.createFailureResponse(e.getMessage(),400);
@@ -56,9 +59,14 @@ public class PostController {
     @GetMapping("/posts/{nickname}")
     @ApiOperation(value = "Get all posts of the user")
     @CrossOrigin(origins = "http://localhost:3000")
-    public List<PostDto> getAllPosts(@Valid @PathVariable("nickname") String nickname){
-        List<PostDto> posts= new ArrayList<>();
-        return postRepository.findByUserNickname(nickname);
+    public RestResponse getAllPosts(@Valid @PathVariable("nickname") String nickname,
+                                     @Valid @RequestParam(value = "count", defaultValue = "10") int count,
+                                     @Valid @RequestParam(value = "page", defaultValue = "1") int page){
+        List<PostDto> posts= postRepository.findByUserNickname(nickname);
+        int start = Math.max((page-1)*count, 0);
+        int end = Math.min(page*count, posts.size());
+        Pair<Integer, List<PostDto>> response = new Pair<>(posts.size(), posts.subList(start, end));
+        return RestResponse.createSuccessResponse(response);
     }
 
     @PostMapping("/posts")

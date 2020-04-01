@@ -10,6 +10,7 @@ import com.cis.minisocialnetwork.RestResponse;
 import com.cis.minisocialnetwork.dto.UserDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -93,7 +94,8 @@ public class FollowerController {
     @GetMapping("/followings")
     @ApiOperation(value = "get all followings")
     @CrossOrigin(origins = "http://localhost:3000")
-    public RestResponse getFollowings(){
+    public RestResponse getFollowings(@Valid @RequestParam(value = "count", defaultValue = "10") int count,
+                                      @Valid @RequestParam(value = "page", defaultValue = "1") int page){
         try{
             String username = "";
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -103,7 +105,10 @@ public class FollowerController {
                 username = principal.toString();
             }
             List<UserDto> users = userRepository.getFollowings(username);
-            return RestResponse.createSuccessResponse(users);
+            int start = Math.max((page-1)*count, 0);
+            int end = Math.min(page*count, users.size());
+            Pair<Integer, List<UserDto>> response = new Pair<>(users.size(), users.subList(start, end));
+            return RestResponse.createSuccessResponse(response);
         }
         catch(ResourceNotFoundException e){
             return RestResponse.createFailureResponse(e.getMessage(),400);

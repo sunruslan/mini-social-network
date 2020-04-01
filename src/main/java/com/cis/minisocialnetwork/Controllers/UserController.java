@@ -12,6 +12,7 @@ import com.cis.minisocialnetwork.dto.PostDto;
 import com.cis.minisocialnetwork.dto.UserDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import javafx.util.Pair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,7 +74,8 @@ public class UserController {
             List<UserDto> users = userRepository.findAllUsers(username);
             int start = Math.max((page-1)*count, 0);
             int end = Math.min(page*count, users.size());
-            return RestResponse.createSuccessResponse(users.subList(start, end));
+            Pair<Integer, List<UserDto>> response = new Pair<>(users.size(), users.subList(start, end));
+            return RestResponse.createSuccessResponse(response);
         }
         catch(ResourceNotFoundException e){
             return RestResponse.createFailureResponse(e.getMessage(),400);
