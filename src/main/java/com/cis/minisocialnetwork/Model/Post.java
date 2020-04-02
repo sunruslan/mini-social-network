@@ -48,8 +48,7 @@ public class Post extends AuditModel {
     private String title;
 
     @NotNull
-    @Lob
-    @ApiModelProperty(notes = "The url of the content")
+    @ApiModelProperty(notes = "Content of the post")
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
