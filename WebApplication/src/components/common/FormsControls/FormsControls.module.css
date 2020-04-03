@@ -1,0 +1,15 @@
+.error {
+    color: red;
+}
+
+.error input {
+    border: solid 1px red;
+}
+
+.error textarea {
+    border: solid 1px red;
+}
+
+/*.border {*/
+/*    border: solid 1px red;*/
+/*}*/
