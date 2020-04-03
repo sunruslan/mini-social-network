@@ -118,7 +118,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <workingDirectory>./frontend</workingDirectory>
+                    <workingDirectory>./WebApplication</workingDirectory>
                 </configuration>
             </plugin>
             <plugin>
@@ -135,7 +135,7 @@
                             <outputDirectory>target/classes/static</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>frontend/build</directory>
+                                    <directory>WebApplication/build</directory>
                                     <filtering>true</filtering>
                                 </resource>
                             </resources>
