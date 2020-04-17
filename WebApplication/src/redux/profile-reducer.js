@@ -10,7 +10,8 @@ const initialState = {
     posts: [],
     isFetching: true,
     currentPage: 1,
-    totalCount: 0
+    totalCount: 0,
+    pageSize: 3
 };
 
 export const profileReducer = (state = initialState, action) => {
@@ -59,18 +60,29 @@ export const getPostsTC = (nickname, page=1, count=10) => (dispatch) => {
     })
 };
 
-export const addPostTC = (nickname, title, content, page=1) => (dispatch) => {
+export const addPostTC = (title, content) => (dispatch, getState) => {
+    console.log(title, content);
+    let nickname = getState().app.name;
+    let page = getState().profilePage.page;
+    let pageSize = getState().profilePage.pageSize;
     profileAPI.addPost(title, content).then(response => {
         if (response.data.statusCode === 200) {
-            dispatch(getPostsTC(nickname, page));
+            dispatch(getPostsTC(nickname, page, pageSize));
         }
     })
 }
 
-export const deletePostTC = (nickname, postId, page=1) => (dispatch) => {
+export const deletePostTC = (postId) => (dispatch, getState) => {
+    let page = getState().profilePage.currentPage;
+    const pageSize = getState().profilePage.pageSize;
+    const nickname = getState().app.name;
+    const totalCount = getState().profilePage.totalCount;
+    if (page > Math.ceil((totalCount - 1) / pageSize)) {
+        page -= 1;
+    }
     profileAPI.deletePost(postId).then(response => {
         if (response.data.statusCode === 200) {
-            dispatch(getPostsTC(nickname, page));
+            dispatch(getPostsTC(nickname, page, pageSize));
         }
     })
 }

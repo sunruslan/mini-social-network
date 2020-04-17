@@ -12,7 +12,7 @@ const Posts = ({posts, ...props}) => {
             <div key={u.postId}>
                 <Post title={u.title} content={u.content} updateTime={u.updated_at}/>
                 {props.isOwner ?
-                    <button onClick={(e) => props.onDeletePost(props.nickname, u.postId, props.currentPage)}>Delete this</button>
+                    <button onClick={(e) => props.onDeletePost(u.postId)}>Delete this</button>
                     : ''}
             </div>
         );
@@ -28,11 +28,11 @@ const Posts = ({posts, ...props}) => {
 
 class PostsContainer extends React.Component {
     componentDidMount() {
-        this.props.getPosts(this.props.nickname, this.props.currentPage);
+        this.props.getPosts(this.props.nickname, this.props.currentPage, this.props.pageSize);
     }
 
     setPage = (page) => {
-        this.props.getPosts(this.props.nickname, page);
+        this.props.getPosts(this.props.nickname, page, this.props.pageSize);
     }
 
     render() {
@@ -40,10 +40,10 @@ class PostsContainer extends React.Component {
         return (
             <div>
                 <Paginator totalItemsCount={this.props.totalCount} currentPage={this.props.currentPage}
-                           onPageChanged={this.setPage} pageSize={10} portionSize={5}/>
+                           onPageChanged={this.setPage} pageSize={this.props.pageSize} portionSize={5}/>
                 <Posts posts={this.props.posts} onDeletePost={this.props.deletePost}
                        isOwner={isOwner} currentPage={this.props.currentPage} nickname={this.props.nickname}/>
-                {isOwner ? <PostForm nickname={this.props.nickname}/> : ''}
+                {isOwner && <PostForm />}
             </div>
         )
     }
@@ -52,9 +52,10 @@ class PostsContainer extends React.Component {
 const mapStateToProps = (state) => ({
     posts: state.profilePage.posts,
     nickname: state.profilePage.profile.nickname,
+    currentAuthorizedUser: state.app.name,
     currentPage: state.profilePage.currentPage,
-    totalCount: state.profilePage.totalCount,
-    currentAuthorizedUser: state.app.name
+    pageSize: state.profilePage.pageSize,
+    totalCount: state.profilePage.totalCount
 });
 
 const mapDispatchToProps = {

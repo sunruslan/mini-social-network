@@ -21,7 +21,7 @@ const PostReduxForm = reduxForm({form: 'addPost'})(Form);
 
 const PostForm = (props) => {
     const onSubmit = (formData) => {
-        props.addPost(props.nickname, formData.title, formData.content);
+        props.addPost(formData.title, formData.content);
     }
 
     return (

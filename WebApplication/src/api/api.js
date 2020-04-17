@@ -89,10 +89,10 @@ export const appAPI = {
                 "ROLE_CLIENT"
             ],
             userProfile: {
-                about: props.about,
+                about: props.about ? props.about : '',
                 gender: props.gender,
-                location: props.location,
-                profilePicUrl: props.profilePicUrl
+                location: props.location ? props.location : 'Russia',
+                profilePicUrl: props.profilePicUrl ? props.profilePicUrl : 'https://www.logolynx.com/images/logolynx/97/97e88682fa82ed11f3bf96dcf8479635.png'
             }
         };
         return instance.post('users/signup', newUser);
