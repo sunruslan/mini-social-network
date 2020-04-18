@@ -8,15 +8,54 @@ import {reqiuredField} from "../../../utils/validators/validators";
 
 const SignUpForm = (props) => {
     return (
-        <form onSubmit={props.handleSubmit}>
-            <Field class="form-group" component={Input} name={'nickname'} placeholder={'Nickname'} validate={[reqiuredField]}/>
-            <Field class="form-group" component={Input} name={'password'} placeholder={'Password'} type={'password'} validate={[reqiuredField]}/>
-            <Field class="form-group" component={Textarea} name={'about'} placeholder={'About Me'}/>
-            <Field class="form-group" component={Input} name={'location'} placeholder={'Location'}/>
-            <Field class="form-group" component={Input} name={'profilePicUrl'} placeholder={'Avatar URL'}/>
-            <Field class="form-group" component={Input} name={'gender'} type={'radio'} value={'M'} text={'Male'}/>
-            <Field class="form-group" component={Input} name={'gender'} type={'radio'} value={'F'} text={'Female'}/>
-            <button  type="button" class="btn btn-primary">Sign up</button>
+        <form className="col-md-12"  onSubmit={props.handleSubmit}>
+            <div className="form-row m-0 p-0">
+
+    <div className="form-group col-md-6">
+        <label>User nickname</label>
+        <Field className="form-control" component={Input} name={'nickname'} placeholder={'nickname'} validate={[reqiuredField]}/>
+    </div>
+    <div className="form-group  col-md-6">
+        <label>Password</label>
+        <Field className="form-control" component={Input} name={'password'} placeholder={'password'}
+               type={'password'} validate={[reqiuredField]}/>
+    </div>
+            </div>
+            <div className="form-row">
+
+                <div className="form-group col-md-6">
+                    <label>User location</label>
+                    <Field className="form-control" component={Input} name={'location'} placeholder={'Moscow'}/>
+                </div>
+
+
+                <div className="form-group col-md-6">
+                    <label>Profile avatar picture</label>
+                    <Field className="form-control" component={Input} name={'profilePicUrl'} placeholder={'Avatar URL'}/>
+                </div>
+            </div>
+
+            <div className="form-group col-md-12">
+                    <label>Personal information</label>
+                    <Field className="form-control" component={Textarea} name={'about'} placeholder={'About Me'}/>
+            </div>
+            <div className="form-row col-md-12">
+                <label className="col-sm-1 my-1">Gender</label>
+                <div className="col-sm-2 my-1">
+                    <Field className="form-check form-check-inline" component={Input} name={'gender'} type={'radio'} value={'F'}
+                           text={'Female'}/>
+                </div>
+                <div className="col-sm-2 my-1">
+                    <Field className="form-check form-check-inline" component={Input} name={'gender'} type={'radio'} value={'M'}
+                           text={'Male'}/>
+                </div>
+
+
+            </div>
+            <div className="col-md-12">
+
+                <button  type="submit" className="btn btn-primary">Sign up</button>
+            </div>
         </form>
     );
 };
@@ -31,7 +70,6 @@ const SignUp = (props) => {
 
     return (
         <div>
-            <h1>Sign up</h1>
             <SignUpReduxForm onSubmit={onSubmit}/>
         </div>
     )

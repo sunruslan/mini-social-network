@@ -46,7 +46,6 @@ class Followings extends React.Component {
         }
         return (
             <div>
-                My Followings
                 <Paginator portionSize={5} pageSize={10} onPageChanged={this.setPage}
                            currentPage={this.state.currentPage} totalItemsCount={this.state.totalCount} />
                 <Users users={this.state.followings} unfollow={this.onUnfollow}/>

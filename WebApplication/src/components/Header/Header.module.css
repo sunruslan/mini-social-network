@@ -4,4 +4,14 @@
 
 .loginBlock a {
     color: blue;
+    margin: 5pt;
+}
+.profileBlock {
+    margin: 5pt;
+}
+
+.userName h5{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }

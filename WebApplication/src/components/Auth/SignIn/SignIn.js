@@ -8,18 +8,17 @@ import {withAuthRedirect} from "../../../HOCs/withAuthRedirect";
 
 const LoginForm = (props) => {
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field component={Input} name={'nickname'} placeholder={'Nickname'} validate={[reqiuredField]}/>
+        <form className="px-4 py-3" onSubmit={props.handleSubmit}>
+            <div className="form-row align-items-center">
+                <div className="col-sm-3 my-1">
+                <Field component={Input} className="form-control" placeholder="Nickname" name={'nickname'}  validate={[reqiuredField]}/>
             </div>
-            <div>
-                <Field component={Input} name={'password'} placeholder={'Password'} type={'password'} validate={[reqiuredField]}/>
+                <div className="col-sm-3 my-1">
+                    <Field component={Input} className="form-control" placeholder="Password" name={'password'} type={'password'} validate={[reqiuredField]}/>
+                </div>
+            <div className="col-auto my-1">
+                <button type="submit" className="btn btn-primary">Sign In</button>
             </div>
-            <div>
-                {props.error}
-            </div>
-            <div>
-                <button className={'btn btn-primary'}>Login</button>
             </div>
         </form>
     );
@@ -35,7 +34,6 @@ const SignIn = (props) => {
 
     return (
         <div>
-            <h1>Login</h1>
             <LoginReduxForm onSubmit={onSubmit}/>
         </div>
     );

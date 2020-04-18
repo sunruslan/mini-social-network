@@ -7,7 +7,6 @@ export const Input = ({input, meta, ...props}) => {
         <div className={isError ? style.error: undefined}>
             <input {...input} {...props}/>
             {props.text}
-            {isError && <span>{meta.error}</span>}
         </div>
     );
 };
@@ -18,7 +17,6 @@ export const Textarea = ({input, meta, ...props}) => {
         <div className={isError ? style.error: undefined}>
             <textarea {...input} {...props}/>
             {props.text}
-            {isError && <span>{meta.error}</span>}
         </div>
     );
 };

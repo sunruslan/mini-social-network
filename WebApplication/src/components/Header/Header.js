@@ -7,25 +7,28 @@ import {appAPI, usersAPI} from "../../api/api";
 
 const Header = (props) => {
     return (
+        <nav class="navbar navbar-light bg-light" >
         <div>
-            <div className={style.loginBlock}>
-                {props.isAuth ?
-                    <div>
-                        <NavLink to={'/users'}>Пользователи</NavLink>
-                        <NavLink to={'/profile'}>Профиль</NavLink>
-                        <NavLink to={'/followings'}>Мои подписки</NavLink>
-                        <NavLink to={'/settings'}>Настройки</NavLink>
-                        {props.name}
-                        <button onClick={props.logout}>Logout</button>
-                    </div> :
-                    <div>
-                        <NavLink to={'/auth/signin'}>Sign in</NavLink>
-                        <NavLink to={'/auth/signup'}>Sign up</NavLink>
-                    </div>
-                }
-            </div>
+        {props.isAuth ?
+            <div>
+                <div  className="col-md-6">
+                    <NavLink className={style.profileBlock} to={'/users'}>Пользователи</NavLink>
+                    <NavLink className={style.profileBlock} to={'/profile'}>Профиль</NavLink>
+                    <NavLink className={style.profileBlock} to={'/followings'}>Мои подписки</NavLink>
+                </div>
 
-        </div>
+                <h5 className="col-md-5">{props.name}</h5>
+                <button className="col-md-1 btn btn-warning" onClick={props.logout}>Logout</button>
+            </div>:
+                <div  className={style.loginBlock}>
+                    <NavLink to={'/auth/signin'}>Sign in</NavLink>
+                    <NavLink to={'/auth/signup'}>Sign up</NavLink>
+                </div>
+        }
+</div>
+
+        </nav>
+
     );
 };
 

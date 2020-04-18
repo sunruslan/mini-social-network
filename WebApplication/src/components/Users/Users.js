@@ -15,8 +15,10 @@ const Users = (props) => {
         <div>
             <Paginator totalItemsCount={props.totalUsersCount} currentPage={props.currentPage}
                        onPageChanged={props.setPage} pageSize={props.pageSize} portionSize={10} />
+            <div class="list-group">
+                {usersList}
+            </div>
 
-            {usersList}
         </div>
     );
 };

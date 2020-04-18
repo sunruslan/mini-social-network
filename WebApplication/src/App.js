@@ -8,12 +8,20 @@ import Followings from "./components/Followings/Followings";
 
 const App = (props) => {
   return (
-      <div class="container">
-        <Header/>
-        <Route path={'/profile/:username?'} render={() => <Profile/>}/>
-        <Route path={'/users'} render={() => <Users/>}/>
-        <Route path={'/auth/:authMode'} render={() => <Auth/>}/>
-        <Route path={'/followings'} render={() => <Followings/>}/>
+      <div>
+              <div className="jumbotron jumbotron-fluid">
+                  <div className="container">
+                      <h1 className="display-4">Mini Social Network</h1>
+                      <p className="lead">Created by Ruslan Sungatullin and Dmitry Ivanov</p>
+                  </div>
+              </div>
+          <div className="container">
+              <Header/>
+              <Route path={'/profile/:username?'} render={() => <Profile/>}/>
+              <Route path={'/users'} render={() => <Users/>}/>
+              <Route path={'/auth/:authMode'} render={() => <Auth/>}/>
+              <Route path={'/followings'} render={() => <Followings/>}/>
+          </div>
       </div>
   );
 };
