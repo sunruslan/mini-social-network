@@ -11,6 +11,10 @@ const Header = (props) => {
             <div className={style.loginBlock}>
                 {props.isAuth ?
                     <div>
+                        <NavLink to={'/users'}>Пользователи</NavLink>
+                        <NavLink to={'/profile'}>Профиль</NavLink>
+                        <NavLink to={'/followings'}>Мои подписки</NavLink>
+                        <NavLink to={'/settings'}>Настройки</NavLink>
                         {props.name}
                         <button onClick={props.logout}>Logout</button>
                     </div> :
@@ -20,10 +24,7 @@ const Header = (props) => {
                     </div>
                 }
             </div>
-            <NavLink to={'/users'}>Пользователи</NavLink>
-            <NavLink to={'/profile'}>Профиль</NavLink>
-            <NavLink to={'/followings'}>Мои подписки</NavLink>
-            <NavLink to={'/settings'}>Настройки</NavLink>
+
         </div>
     );
 };

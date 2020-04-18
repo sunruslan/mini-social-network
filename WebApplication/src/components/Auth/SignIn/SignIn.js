@@ -19,7 +19,7 @@ const LoginForm = (props) => {
                 {props.error}
             </div>
             <div>
-                <button>Login</button>
+                <button className={'btn btn-primary'}>Login</button>
             </div>
         </form>
     );

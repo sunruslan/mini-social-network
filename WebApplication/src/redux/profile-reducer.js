@@ -61,10 +61,10 @@ export const getPostsTC = (nickname, page=1, count=10) => (dispatch) => {
 };
 
 export const addPostTC = (title, content) => (dispatch, getState) => {
-    console.log(title, content);
     let nickname = getState().app.name;
-    let page = getState().profilePage.page;
+    let page = getState().profilePage.currentPage;
     let pageSize = getState().profilePage.pageSize;
+    console.log(page, pageSize);
     profileAPI.addPost(title, content).then(response => {
         if (response.data.statusCode === 200) {
             dispatch(getPostsTC(nickname, page, pageSize));
