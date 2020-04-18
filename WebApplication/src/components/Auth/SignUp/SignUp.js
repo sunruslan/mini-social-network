@@ -9,14 +9,14 @@ import {reqiuredField} from "../../../utils/validators/validators";
 const SignUpForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field component={Input} name={'nickname'} placeholder={'Nickname'} validate={[reqiuredField]}/>
-            <Field component={Input} name={'password'} placeholder={'Password'} type={'password'} validate={[reqiuredField]}/>
-            <Field component={Textarea} name={'about'} placeholder={'About Me'}/>
-            <Field component={Input} name={'location'} placeholder={'Location'}/>
-            <Field component={Input} name={'profilePicUrl'} placeholder={'Avatar URL'}/>
-            <Field component={Input} name={'gender'} type={'radio'} value={'M'} text={'Male'}/>
-            <Field component={Input} name={'gender'} type={'radio'} value={'F'} text={'Female'}/>
-            <button>Sign up</button>
+            <Field class="form-group" component={Input} name={'nickname'} placeholder={'Nickname'} validate={[reqiuredField]}/>
+            <Field class="form-group" component={Input} name={'password'} placeholder={'Password'} type={'password'} validate={[reqiuredField]}/>
+            <Field class="form-group" component={Textarea} name={'about'} placeholder={'About Me'}/>
+            <Field class="form-group" component={Input} name={'location'} placeholder={'Location'}/>
+            <Field class="form-group" component={Input} name={'profilePicUrl'} placeholder={'Avatar URL'}/>
+            <Field class="form-group" component={Input} name={'gender'} type={'radio'} value={'M'} text={'Male'}/>
+            <Field class="form-group" component={Input} name={'gender'} type={'radio'} value={'F'} text={'Female'}/>
+            <button  type="button" class="btn btn-primary">Sign up</button>
         </form>
     );
 };

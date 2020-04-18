@@ -8,7 +8,7 @@ import Followings from "./components/Followings/Followings";
 
 const App = (props) => {
   return (
-      <div>
+      <div class="container">
         <Header/>
         <Route path={'/profile/:username?'} render={() => <Profile/>}/>
         <Route path={'/users'} render={() => <Users/>}/>
