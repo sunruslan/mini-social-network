@@ -7,6 +7,7 @@ export const Input = ({input, meta, ...props}) => {
         <div className={isError ? style.error: undefined}>
             <input {...input} {...props}/>
             {props.text}
+            {/*{isError && <span>{meta.error}</span>}*/}
         </div>
     );
 };

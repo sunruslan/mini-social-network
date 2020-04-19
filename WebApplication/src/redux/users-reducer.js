@@ -10,7 +10,7 @@ const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
 const initialState = {
     users: [],
     totalUsersCount: 0,
-    pageSize: 10,
+    pageSize: 5,
     currentPage: 1,
     isFetching: true
 };

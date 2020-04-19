@@ -12,7 +12,7 @@ import {withAuthRedirect} from "../../HOCs/withAuthRedirect";
 export class CUsers extends React.Component {
 
     componentDidMount() {
-        this.props.setPage(1);
+        this.props.setPage(this.props.currentPage);
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
