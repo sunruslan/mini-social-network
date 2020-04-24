@@ -10,7 +10,8 @@ class Followings extends React.Component {
         followings: [],
         currentPage: 1,
         isFetching: true,
-        totalCount: 0
+        totalCount: 0,
+        pageSize: 5
     }
 
     setPage = (page) => {
@@ -18,8 +19,8 @@ class Followings extends React.Component {
         this.getFollowings(page);
     }
 
-    getFollowings = (page=1, count=10) => {
-        usersAPI.getFollowings(page,count).then(response => {
+    getFollowings = (page=1) => {
+        usersAPI.getFollowings(page, this.state.pageSize).then(response => {
             this.setState({
                 followings: response.data.data.value,
                 isFetching: false,
@@ -29,13 +30,18 @@ class Followings extends React.Component {
     }
 
     componentDidMount() {
-        this.getFollowings(this.state.currentPage);
+        this.setPage(1);
+        // this.getFollowings(this.state.currentPage);
     }
 
     onUnfollow = (username) => {
+        let page = this.state.currentPage;
+        if (page > Math.ceil((this.state.totalCount - 1) / this.state.pageSize)) {
+            page -= 1;
+        }
         usersAPI.unfollow(username).then(response => {
             if (response.data.statusCode === 200) {
-                this.getFollowings(this.state.currentPage);
+                this.setPage(page);
             }
         })
     }
@@ -46,7 +52,7 @@ class Followings extends React.Component {
         }
         return (
             <div>
-                <Paginator portionSize={5} pageSize={10} onPageChanged={this.setPage}
+                <Paginator portionSize={5} pageSize={this.state.pageSize} onPageChanged={this.setPage}
                            currentPage={this.state.currentPage} totalItemsCount={this.state.totalCount} />
                 <Users users={this.state.followings} unfollow={this.onUnfollow}/>
             </div>

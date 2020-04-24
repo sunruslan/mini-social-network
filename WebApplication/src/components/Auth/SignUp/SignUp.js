@@ -13,11 +13,11 @@ const SignUpForm = (props) => {
 
     <div className="form-group col-md-6">
         <label>User nickname</label>
-        <Field className="form-control" component={Input} name={'nickname'} placeholder={'nickname'} validate={[reqiuredField]}/>
+        <Field className="form-control" component={Input} name={'nickname'} validate={[reqiuredField]}/>
     </div>
     <div className="form-group  col-md-6">
         <label>Password</label>
-        <Field className="form-control" component={Input} name={'password'} placeholder={'password'}
+        <Field className="form-control" component={Input} name={'password'}
                type={'password'} validate={[reqiuredField]}/>
     </div>
             </div>
@@ -25,19 +25,19 @@ const SignUpForm = (props) => {
 
                 <div className="form-group col-md-6">
                     <label>User location</label>
-                    <Field className="form-control" component={Input} name={'location'} placeholder={'Moscow'}/>
+                    <Field className="form-control" component={Input} name={'location'}/>
                 </div>
 
 
                 <div className="form-group col-md-6">
                     <label>Profile avatar picture</label>
-                    <Field className="form-control" component={Input} name={'profilePicUrl'} placeholder={'Avatar URL'}/>
+                    <Field className="form-control" component={Input} name={'profilePicUrl'} />
                 </div>
             </div>
 
             <div className="form-group col-md-12">
                     <label>Personal information</label>
-                    <Field className="form-control" component={Textarea} name={'about'} placeholder={'About Me'}/>
+                    <Field className="form-control" component={Textarea} name={'about'}/>
             </div>
             <div className="form-row col-md-12">
                 <label className="col-sm-1 my-1">Gender</label>
