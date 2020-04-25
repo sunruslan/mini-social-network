@@ -4,7 +4,7 @@ import {Field, reduxForm} from "redux-form";
 import {signUpTC} from "../../../redux/app-reducer";
 import {connect} from "react-redux";
 import {withAuthRedirect} from "../../../HOCs/withAuthRedirect";
-import {reqiuredField} from "../../../utils/validators/validators";
+import {reqiuredField, checkSize} from "../../../utils/validators/validators";
 
 const SignUpForm = (props) => {
     return (
@@ -13,12 +13,12 @@ const SignUpForm = (props) => {
 
     <div className="form-group col-md-6">
         <label>User nickname</label>
-        <Field className="form-control" component={Input} name={'nickname'} validate={[reqiuredField]}/>
+        <Field className="form-control" component={Input} name={'nickname'} validate={[reqiuredField, checkSize]}/>
     </div>
     <div className="form-group  col-md-6">
         <label>Password</label>
         <Field className="form-control" component={Input} name={'password'}
-               type={'password'} validate={[reqiuredField]}/>
+               type={'password'} validate={[reqiuredField,checkSize]}/>
     </div>
             </div>
             <div className="form-row">

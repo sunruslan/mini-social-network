@@ -3,8 +3,8 @@ import React from "react";
 const Post = ({title, content, updateTime, ...props}) => {
     return (
         <div>
-            Title: {title}
-            Content: {content}
+            <h5>{title}</h5>
+            <p>{content}</p>
         </div>
     )
 }

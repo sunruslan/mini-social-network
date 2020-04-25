@@ -9,19 +9,22 @@ import {connect} from "react-redux";
 const Posts = ({posts, ...props}) => {
     const postsList = posts.map(u => {
         return (
-            <div key={u.postId}>
-                <Post title={u.title} content={u.content} updateTime={u.updated_at}/>
-                {props.isOwner ?
-                    <button onClick={(e) => props.onDeletePost(u.postId)}>Delete this</button>
-                    : ''}
-            </div>
+            <li className="list-group-item">
+                <div key={u.postId}>
+                    <Post title={u.title} content={u.content} updateTime={u.updated_at}/>
+                    {props.isOwner ?
+                        <button type="button" class="btn btn-danger" onClick={(e) => props.onDeletePost(u.postId)}>Delete post</button>
+                        : ''}
+                </div>
+            </li>
         );
     });
 
     return (
         <div>
-            <b>My posts</b>
-            {postsList}
+            <ul className="list-group">
+                {postsList}
+            </ul>
         </div>
     );
 }
@@ -39,11 +42,11 @@ class PostsContainer extends React.Component {
         const isOwner = this.props.currentAuthorizedUser === this.props.nickname;
         return (
             <div>
+                <h5>Posts</h5>
                 <Paginator totalItemsCount={this.props.totalCount} currentPage={this.props.currentPage}
                            onPageChanged={this.setPage} pageSize={this.props.pageSize} portionSize={5}/>
                 <Posts posts={this.props.posts} onDeletePost={this.props.deletePost}
                        isOwner={isOwner} currentPage={this.props.currentPage} nickname={this.props.nickname}/>
-                {isOwner && <PostForm />}
             </div>
         )
     }

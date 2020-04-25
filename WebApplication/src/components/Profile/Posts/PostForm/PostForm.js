@@ -3,17 +3,18 @@ import {Field, reduxForm} from "redux-form";
 import {Input, Textarea} from "../../../common/FormsControls/FormsControls";
 import {addPostTC} from "../../../../redux/profile-reducer";
 import {connect} from "react-redux";
-import {reqiuredField} from "../../../../utils/validators/validators";
+import {checkSize, reqiuredField} from "../../../../utils/validators/validators";
+import style from "./PostForm.module.css";
 
 const Form = (props) => {
     return (
-        <div>
-            <form onSubmit={props.handleSubmit}>
-                <Field component={Input} name={'title'} placeholder={'Post title'} validate={[reqiuredField]}/>
-                <Field component={Textarea} name={'content'} placeholder={'Post content'} validate={[reqiuredField]}/>
-                <button>Add post</button>
-            </form>
-        </div>
+        <form onSubmit={props.handleSubmit}>
+            <div className="form-group">
+                    <Field className={style.FieldPost + " " + "form-control"} component={Input} name={'title'} placeholder={'Post title'} validate={[reqiuredField]}/>
+                    <Field className={style.FieldPost + " " + "form-control"} component={Textarea} name={'content'} placeholder={'Post content'} validate={[reqiuredField]}/>
+                    <button className="btn btn-success" >Add post</button>
+            </div>
+        </form>
     );
 }
 
