@@ -31,7 +31,8 @@ const Posts = ({posts, ...props}) => {
 
 class PostsContainer extends React.Component {
     componentDidMount() {
-        this.props.getPosts(this.props.nickname, this.props.currentPage, this.props.pageSize);
+        this.setPage(1);
+        // this.props.getPosts(this.props.nickname, this.props.currentPage, this.props.pageSize);
     }
 
     setPage = (page) => {
