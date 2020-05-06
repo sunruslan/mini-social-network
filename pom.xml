@@ -20,9 +20,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.wildfly.swarm</groupId>
-            <artifactId>javafx</artifactId>
-            <version>2016.10.0</version>
+            <groupId>io.vavr</groupId>
+            <artifactId>vavr</artifactId>
+            <version>0.10.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -83,73 +83,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>com.github.eirslett</groupId>-->
-<!--                <artifactId>frontend-maven-plugin</artifactId>-->
-<!--                <version>1.9.1</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>Install Node and npm ...</id>-->
-
-<!--                        <goals>-->
-<!--                            <goal>install-node-and-npm</goal>-->
-<!--                        </goals>-->
-<!--                        <phase>generate-resources</phase>-->
-<!--                        <configuration>-->
-<!--                            <nodeVersion>v12.16.0</nodeVersion>-->
-<!--                            <npmVersion>6.13.4</npmVersion>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                    <execution>-->
-<!--                        <id>npm install all of our dependencies</id>-->
-<!--                        <goals>-->
-<!--                            <goal>npm</goal>-->
-<!--                        </goals>-->
-<!--                        <phase>generate-resources</phase>-->
-<!--                        <configuration>-->
-<!--                            <arguments>install</arguments>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-
-<!--                    <execution>-->
-<!--                        <id>npm build our react application</id>-->
-<!--                        <goals>-->
-<!--                            <goal>npm</goal>-->
-<!--                        </goals>-->
-<!--                        <phase>generate-resources</phase>-->
-<!--                        <configuration>-->
-<!--                            <arguments>run build</arguments>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    <workingDirectory>./WebApplication</workingDirectory>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-resources-plugin</artifactId>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>Copy frontend to the static folder of spring application</id>-->
-<!--                        <phase>process-resources</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>copy-resources</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <outputDirectory>target/classes/static</outputDirectory>-->
-<!--                            <resources>-->
-<!--                                <resource>-->
-<!--                                    <directory>WebApplication/build</directory>-->
-<!--                                    <filtering>true</filtering>-->
-<!--                                </resource>-->
-<!--                            </resources>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
-
-<!--                </executions>-->
-<!--            </plugin>-->
-
             <plugin>
                 <groupId>com.heroku.sdk</groupId>
                 <artifactId>heroku-maven-plugin</artifactId>

@@ -22,9 +22,9 @@ class Followings extends React.Component {
     getFollowings = (page=1) => {
         usersAPI.getFollowings(page, this.state.pageSize).then(response => {
             this.setState({
-                followings: response.data.data.value,
+                followings: response.data.data["_2"],
                 isFetching: false,
-                totalCount: response.data.data.key
+                totalCount: response.data.data["_1"]
             });
         });
     }

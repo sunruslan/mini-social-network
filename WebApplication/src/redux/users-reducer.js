@@ -76,8 +76,8 @@ export const getUsersTC = (page, pageSize) => (dispatch) => {
     dispatch(toggleFetchingAC(true));
     usersAPI.getUsers(page, pageSize)
         .then(data => {
-            dispatch(setUsersAC(data.data.value));
-            dispatch(setTotalCountAC(data.data.key));
+            dispatch(setUsersAC(data.data["_2"]));
+            dispatch(setTotalCountAC(data.data["_1"]));
             dispatch(toggleFetchingAC(false));
         })
 };

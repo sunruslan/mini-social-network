@@ -10,7 +10,7 @@ import com.cis.minisocialnetwork.RestResponse;
 import com.cis.minisocialnetwork.dto.UserDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import javafx.util.Pair;
+import io.vavr.Tuple2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -107,7 +107,7 @@ public class FollowerController {
             List<UserDto> users = userRepository.getFollowings(username);
             int start = Math.max((page-1)*count, 0);
             int end = Math.min(page*count, users.size());
-            Pair<Integer, List<UserDto>> response = new Pair<>(users.size(), users.subList(start, end));
+            Tuple2<Integer, List<UserDto>> response = new Tuple2<>(users.size(), users.subList(start, end));
             return RestResponse.createSuccessResponse(response);
         }
         catch(ResourceNotFoundException e){

@@ -55,7 +55,7 @@ export const getProfileTC = (username) => (dispatch) => {
 export const getPostsTC = (nickname, page=1, count=10) => (dispatch) => {
     profileAPI.getPosts(nickname, page, count).then(response => {
         if (response.data.statusCode === 200) {
-            dispatch(setPostsAC(response.data.data.value, page, response.data.data.key));
+            dispatch(setPostsAC(response.data.data["_2"], page, response.data.data["_1"]));
         }
     })
 };
