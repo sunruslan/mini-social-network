@@ -12,7 +12,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080" # Forward the exposed port 8080 on the container to port 8080 on the host machine
-    restart: always
     depends_on:
       - db # This service depends on mysql. Start that first.
     environment: # Pass environment variables to the service
@@ -32,7 +31,6 @@ services:
         REACT_APP_API_BASE_URL: http://localhost:8080/
     ports:
       - "9090:80" # Map the exposed port 80 on the container to port 9090 on the host machine
-    restart: always
     depends_on:
       - app-server
     networks:
@@ -42,11 +40,10 @@ services:
     image: postgres
     ports:
       - "5432:5432"
-    restart: always
     environment:
-      - POSTGRES_USER="postgres"
-      - POSTGRES_PASSWORD="admin"
-      - POSTGRES_DB="postgres"
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=postgres
     volumes:
       - db-data:/var/lib/postgres
     networks:
