@@ -30,7 +30,7 @@ services:
       args:
         REACT_APP_API_BASE_URL: http://localhost:8080/
     ports:
-      - "9090:80" # Map the exposed port 80 on the container to port 9090 on the host machine
+      - "3000:3000" # Map the exposed port 80 on the container to port 9090 on the host machine
     depends_on:
       - app-server
     networks:
