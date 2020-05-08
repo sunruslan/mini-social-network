@@ -80,6 +80,9 @@ export const deletePostTC = (postId) => (dispatch, getState) => {
     if (page > Math.ceil((totalCount - 1) / pageSize)) {
         page -= 1;
     }
+    if (page === 0) {
+        page = 1;
+    }
     profileAPI.deletePost(postId).then(response => {
         if (response.data.statusCode === 200) {
             dispatch(getPostsTC(nickname, page, pageSize));

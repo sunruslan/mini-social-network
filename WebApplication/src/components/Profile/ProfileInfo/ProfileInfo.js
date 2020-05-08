@@ -6,7 +6,7 @@ const ProfileInfo = ({profile, ...props}) => {
     return (
         <div className="row">
             <div className="col-md-6">
-                <img className="rounded float-left"
+                <img className={"rounded float-left" + " " + styles.userAvatar}
                      src={profile.profilePicUrl === 'string' ? defaultAva : profile.profilePicUrl}/>
             </div>
             <div className="col-md-6">
